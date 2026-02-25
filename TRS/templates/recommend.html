@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            padding: 40px;
+        }
+        .container {
+            width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .card {
+            background: #e9f5ff;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Travel Recommendation System</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Difficulty:</label>
+        <select name="difficulty" required>
+            <option value="Easy">Easy</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Hard">Hard</option>
+        </select>
+
+        <label>Maximum Budget (NPR):</label>
+        <input type="number" name="cost" required>
+
+        <label>Available Days:</label>
+        <input type="number" name="time" required>
+
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+{% if recommendations %}
+    <h3>Recommended Destinations:</h3>
+
+    {% for row in recommendations %}
+        <div class="card">
+            <strong>{{ row.Trek }}</strong><br>
+            Difficulty: {{ row.Difficulty }}<br>
+            Cost: NPR {{ row.Cost }}<br>
+            Time: {{ row.Time }} Days
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+
+</body>
+</html>
